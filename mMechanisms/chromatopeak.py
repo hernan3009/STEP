@@ -229,12 +229,12 @@ def _auto_seed_M1(t_data, y_data):
     t = np.asarray(t_data, dtype=np.float64)
     y = np.asarray(y_data, dtype=np.float64)
     w = np.clip(y, 0.0, None)
-    area = float(np.trapz(w, t))
+    area = float(np.trapezoid(w, t))
     if not np.isfinite(area) or area <= 0.0:
         raise ValueError("The experimental signal must contain positive area for auto-initialization.")
 
     left_hw, right_hw, t_peak = _half_height_widths(t, w)
-    mean_obs = float(np.trapz(t * w, t) / area)
+    mean_obs = float(np.trapezoid(t * w, t) / area)
     span = max(float(t[-1] - t[0]), 1e-12)
     sigma0 = max(left_hw / np.sqrt(2.0 * np.log(2.0)), 0.01 * span, 1e-6)
     tail_shift = max(mean_obs - t_peak, 0.0)
