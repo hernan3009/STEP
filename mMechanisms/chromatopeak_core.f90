@@ -4,6 +4,15 @@
 !   peak_pdf_jac        : PDF and derivatives with respect to physical parameters.
 !   peak_pdf_jac_fitvars: PDF and derivatives with respect to transformed fit variables.
 !   required_L_fitvars  : truncation order for transformed fit variables.
+!
+!   Physical-parameter routines assume admissible inputs:
+!   sigma_G > 0, Lambda(j) > 0, and theta(1) the smallest theta scale.
+!   No sorting or repeated checks are done here, to avoid overhead and to
+!   avoid silently changing the Lambda(j)-theta(j) association.
+!   Transformed-variable entry points facilitate fitting by enforcing
+!   positivity and ordered theta values by construction.
+
+
 module chromatopeak_core
   use iso_c_binding, only: c_int, c_double
   implicit none
